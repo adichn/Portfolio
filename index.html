@@ -264,6 +264,72 @@
             font-size: 2.5rem;
             color: var(--primary-color);
         }
+
+        :root[data-theme="light"] {
+            --primary-color: #2d3436;
+            --accent-color: #00b894;
+            --text-color: #2d3436;
+            --light-bg: #f5f6fa;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        :root[data-theme="dark"] {
+            --primary-color: #f5f6fa;
+            --accent-color: #00b894;
+            --text-color: #f5f6fa;
+            --light-bg: #1a1a1a;
+            --card-bg: rgba(45, 45, 45, 0.95);
+            --nav-bg: rgba(30, 30, 30, 0.95);
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-left: 2rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .github-btn {
+            background: #24292e;
+            color: white;
+        }
+
+        .linkedin-btn {
+            background: #0077b5;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
@@ -278,6 +344,9 @@
                     <a href="#skills">Skills</a>
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -287,7 +356,17 @@
             <div class="container hero-content">
                 <h1>Hi, I'm Aditya Chauhan</h1>
                 <p>I'm a <span class="typed-text"></span></p>
-                <a href="#projects" class="btn">View My Work</a>
+                <div class="social-links">
+                    <a href="https://github.com/adichn" target="_blank" rel="noopener noreferrer" class="social-btn github-btn">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/adityachauhan171/" target="_blank" rel="noopener noreferrer" class="social-btn linkedin-btn">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+                <a href="#projects" class="btn" style="margin-top: 1rem;">View My Work</a>
             </div>
         </section>
 
@@ -418,7 +497,7 @@
         });
 
         // Typing animation
-        const texts = ['Full-Stack Developer', 'Cybersecurity Specialist', 'ML Engineer', 'Data Scientist'];
+        const texts = ['Full-Stack Developer', 'Cybersecurity Specialist', 'ML Engineer', 'Data Scientist', 'Computer Scientist'];
         let count = 0;
         let index = 0;
         let currentText = '';
@@ -467,6 +546,29 @@
             card.style.transition = 'all 0.6s ease-out';
             observer.observe(card);
         });
+
+        const themeToggle = document.querySelector('.theme-toggle');
+        const root = document.documentElement;
+        const moonIcon = '<i class="fas fa-moon"></i>';
+        const sunIcon = '<i class="fas fa-sun"></i>';
+
+        function toggleTheme() {
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'light' ? moonIcon : sunIcon;
+            
+            // Update particles color based on theme
+            if (window.pJSDom && window.pJSDom[0]) {
+                const particles = window.pJSDom[0].pJS.particles;
+                const newColor = newTheme === 'light' ? '#00b894' : '#00d8ad';
+                particles.color.value = newColor;
+                particles.line_linked.color = newColor;
+                window.pJSDom[0].pJS.fn.particlesRefresh();
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
     </script>
 </body>
 </html>
