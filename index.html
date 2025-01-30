@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Portfolio</title>
+    <title>Aditya Chauhan | Developer & Security Specialist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        /* Base Styles */
         :root {
-            --primary-color: #2ecc71;
-            --secondary-color: #27ae60;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
+            --primary-color: #2d3436;
+            --accent-color: #00b894;
+            --text-color: #2d3436;
+            --light-bg: #f5f6fa;
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
 
         body {
             line-height: 1.6;
-            color: var(--dark-color);
+            color: var(--text-color);
+            background: var(--light-bg);
+            overflow-x: hidden;
         }
 
-        /* Utility Classes */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        .section {
-            padding: 5rem 0;
-        }
-
-        /* Navigation */
+        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             z-index: 1000;
         }
 
@@ -54,11 +67,22 @@
             height: 70px;
         }
 
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
         .nav-links a {
             margin-left: 2rem;
             text-decoration: none;
-            color: var(--dark-color);
+            color: var(--text-color);
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
         }
 
         /* Hero Section */
@@ -66,18 +90,58 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            text-align: center;
-            background: linear-gradient(45deg, var(--light-color), white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: left;
+            max-width: 800px;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
+            line-height: 1.2;
+            animation: slideUp 1s ease;
         }
 
         .hero p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            color: #636e72;
+            animation: slideUp 1s ease 0.2s backwards;
+        }
+
+        .typed-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
         }
 
         /* Projects Section */
@@ -85,14 +149,14 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .project-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
 
@@ -100,10 +164,28 @@
             transform: translateY(-5px);
         }
 
+        .project-image {
+            height: 200px;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
         /* Contact Section */
         .contact-form {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 3rem auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .form-group {
@@ -112,130 +194,254 @@
 
         input, textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: var(--primary-color);
+            padding: 1rem 2rem;
+            background: var(--accent-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
 
         .btn:hover {
-            background: var(--secondary-color);
+            transform: translateY(-2px);
+            background: #00a884;
         }
 
-        /* Footer */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .projects-grid {
+            .nav-links {
+                display: none;
+            }
+
+            .skills-grid, .projects-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container nav-content">
-            <h1>Aditya Chauhan</h1>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero section">
-        <div class="container">
-            <h1>Hi, I'm Aditya</h1>
-            <p>Frontend Developer & UI Designer</p>
-            <a href="#projects" class="btn">View My Work</a>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Project 1</h3>
-                    <p>Project description goes here</p>
-                    <a href="#" class="btn">View Project</a>
+    <div id="particles-js"></div>
+    <div class="content-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container nav-content">
+                <div class="logo">AC</div>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <!-- Add more project cards -->
             </div>
-        </div>
-    </section>
+        </nav>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-list">
-                <!-- Add your skills here -->
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1>Hi, I'm Aditya Chauhan</h1>
+                <p>I'm a <span class="typed-text"></span></p>
+                <a href="#projects" class="btn">View My Work</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <form class="contact-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Name" required>
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">My Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fas fa-shield-alt skill-icon"></i>
+                        <h3>Cybersecurity</h3>
+                        <p>Specialized in penetration testing, web security, and Hack The Box challenges.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-brain skill-icon"></i>
+                        <h3>Machine Learning</h3>
+                        <p>Experience with various ML algorithms, neural networks, and predictive modeling.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code skill-icon"></i>
+                        <h3>Full-Stack Development</h3>
+                        <p>Proficient in Python, Java, JavaScript, and modern web technologies.</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aditya Chauhan. All rights reserved.</p>
-            <div class="social-links">
-                <!-- Add social media icons -->
             </div>
-        </div>
-    </footer>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>Cybersecurity Pentesting Game</h3>
+                            <p>An educational game built with Unreal Engine 5.5 to teach cybersecurity concepts.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>Study Period Organizer</h3>
+                            <p>Web-based application for tracking study sessions, managing time, and generating progress reports.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>CO Prediction Model</h3>
+                            <p>Machine learning model for predicting air quality using historical data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <form class="contact-form" action="https://formsubmit.co/adityachauhan1712004@gmail.com" method="POST">
+                    <!-- Honeypot -->
+                    <input type="text" name="_honey" style="display: none;">
+                    
+                    <!-- Disable Captcha -->
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- Success Page -->
+                    <input type="hidden" name="_next" value="https://yourdomain.com/thanks.html">
+                    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00b894' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00b894',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Typing animation
+        const texts = ['Full-Stack Developer', 'Cybersecurity Specialist', 'ML Engineer', 'Data Scientist'];
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            document.querySelector('.typed-text').textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 2000);
+            } else {
+                setTimeout(type, 100);
+            }
+        })();
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -245,15 +451,7 @@
             });
         });
 
-        // Form submission handling
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your form submission logic here
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
-
-        // Scroll animation for project cards
+        // Scroll animation for cards
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -261,12 +459,12 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        });
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.project-card').forEach((card) => {
+        document.querySelectorAll('.skill-card, .project-card').forEach((card) => {
             card.style.opacity = 0;
             card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.5s ease-out';
+            card.style.transition = 'all 0.6s ease-out';
             observer.observe(card);
         });
     </script>
